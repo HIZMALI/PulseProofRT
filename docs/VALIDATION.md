@@ -7,7 +7,7 @@ Validated on November 8, 2026 on Windows 11 x64 / Python 3.14, QNX SDP 8.0 / GCC
 - **57 host tests pass**, retaining the original 50 checks and adding seven packaging/portability checks. Coverage includes evidence validation, percentile boundaries, timeout/recovery populations, process exclusion, service ownership, strict comparisons, HTTP protections, byte preservation and public-file policy enforcement.
 - **17 real QNX integration checks pass** after cleanup: cross-build, pinned SSH/qconn, packaged Hello execution, timer/load/IPC scenarios, expected deadline exit 1, repeated baseline, independent normal/delayed application, comparison, native input rejection and process cleanup. This retains the original native coverage and adds the independent application workflow.
 - **13 actual evidence sets** retain matching raw SHA-256 values, recomputed summaries and byte-exact CSV contents. The original twelve sets are unchanged; an adverse timer run is also retained.
-- JavaScript syntax and the Windows/Linux × Python 3.10/3.14 workflow are checked locally. Official Action revisions are pinned, permissions are read-only, credentials are not persisted and jobs are bounded. Remote GitHub Actions jobs have **not run**. Host-only jobs do not provide native target coverage.
+- JavaScript syntax and workflow static checks pass locally. Official Action revisions are pinned, permissions are read-only, credentials are not persisted and jobs are bounded. All four hosted combinations pass as recorded below. Hosted jobs do not provide native target coverage.
 
 Repeat checks from the checkout:
 
@@ -18,6 +18,19 @@ python scripts/check-public-files.py
 ```
 
 Detailed local results are written under `artifacts/evidence/`; the native verifier retains timestamped reports. Build scripts treat compiler warnings as errors. Public source archives and source-only staging directories use exactly the paths in `public-files.json`.
+
+## Hosted CI
+
+The [initial public source run](https://github.com/HIZMALI/PulseProofRT/actions/runs/42425411020) at commit `54d0c767e9a3c851fab1b35622608334c4c8aa33` completed successfully on November 8, 2026 (Europe/Istanbul). Each job verified the exact 129-file public policy and passed all 57 host tests; counts were checked in the job logs.
+
+| GitHub-hosted runner | Python | Host tests | Result |
+| --- | --- | ---: | --- |
+| Ubuntu | 3.10 | 57/57 | PASS |
+| Ubuntu | 3.14 | 57/57 | PASS |
+| Windows | 3.10 | 57/57 | PASS |
+| Windows | 3.14 | 57/57 | PASS |
+
+These jobs test host behavior, labeled fixtures and the integrity of retained measurements. They do not boot a QNX guest, cross-compile with the licensed SDK or execute the native integration verifier. Those checks ran locally in the Windows/QNX environment described above. The [workflow page](https://github.com/HIZMALI/PulseProofRT/actions/workflows/host-tests.yml) shows subsequent runs.
 
 ## Retained measurements
 

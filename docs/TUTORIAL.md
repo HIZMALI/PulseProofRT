@@ -162,7 +162,7 @@ Offline commands inspect retained measurements; they do not execute QNX again. C
 
 On a private licensed Windows runner, build and run the application's **candidate scenario** as a normal pipeline step. Propagate its exit status: 0 accepts the measured policy, 1 rejects it, 2 requires acquisition/setup investigation. Archive `raw.ndjson`, `summary.json`, `samples.csv` and `report.html` from that run; exclude SDK, private identities and VM files. `app-demo` is a teaching workflow with an intentional failing candidate, so it should not be used as an always-green CI check.
 
-GitHub Actions checks the public-file policy and runs host tests on Windows/Linux with Python 3.10/3.14. Action revisions are pinned, permissions are read-only, checkout credentials are not persisted and jobs have a five-minute timeout. See [validation](VALIDATION.md) for actual results; remote jobs are not claimed before they run. A hosted runner without a licensed QNX target does not provide native coverage.
+GitHub Actions checks the public-file policy and runs host tests on Windows/Linux with Python 3.10/3.14. All four combinations passed 57 tests; [validation](VALIDATION.md#hosted-ci) links to the run and records the platform split. Action revisions are pinned, permissions are read-only, checkout credentials are not persisted and jobs have a five-minute timeout. A hosted runner without a licensed QNX target does not provide native coverage.
 
 ## Troubleshooting and interpretation
 

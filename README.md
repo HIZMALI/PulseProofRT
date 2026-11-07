@@ -1,5 +1,7 @@
 # PulseProof RT
 
+[![Host regression](https://github.com/HIZMALI/PulseProofRT/actions/workflows/host-tests.yml/badge.svg?branch=main)](https://github.com/HIZMALI/PulseProofRT/actions/workflows/host-tests.yml)
+
 Repeatable timing and regression checks for QNX 8.0 applications.
 
 PulseProof RT combines a native C agent with a local Python workbench. Run a versioned scenario on QNX, evaluate its acceptance policy, and retain the samples behind the result. The CLI returns the same PASS/FAIL decision shown in the browser.
@@ -77,7 +79,7 @@ python scripts/check-public-files.py
 python scripts/package-source.py
 ```
 
-[Validation](docs/VALIDATION.md) records actual checks, retained failures and platform limits. Host tests use labeled fixtures and can run without QNX; real target checks require the licensed Windows/VM environment. Remote Windows/Linux CI results are not claimed before those jobs run.
+[Validation](docs/VALIDATION.md) records actual checks, retained failures and platform limits. All four Windows/Linux × Python 3.10/3.14 combinations passed **57 host tests** in [GitHub Actions](https://github.com/HIZMALI/PulseProofRT/actions/runs/42425411020). Host tests use labeled fixtures and retained evidence without executing QNX. The **17 native integration checks** ran separately on the local licensed Windows/QNX environment.
 
 `public-files.json` is the exact source-distribution allowlist. Packaging does not recursively include documentation or unknown files. CI checks tracked paths against the same policy. `--stage` creates a new source-only directory and does not copy `.git`. The file policy checks the current tree; it does not clear old repository history.
 
