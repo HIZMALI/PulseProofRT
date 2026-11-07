@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "ipc-baseline",
+  "description": "Inter-process QNX channel request/reply round trip with 50 us server work, including 20 excluded warmup exchanges.",
+  "mode": "ipc",
+  "parameters": {"samples": 300, "period_us": 5000, "deadline_us": 20000, "work_us": 50, "load_threads": 0, "fault_every": 0, "fault_delay_us": 0, "timeout_us": 20000, "priority": 20},
+  "gates": {"p99_success_ns": 20000000, "max_deadline_misses": 0, "expected_timeouts": 0, "min_recoveries": 0}
+}

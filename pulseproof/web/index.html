@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Inspect real QNX timing, native IPC and recovery experiments.">
+<title>PulseProof RT · Latency workbench</title>
+<link rel="stylesheet" href="/style.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="#overview" aria-label="PulseProof RT overview"><span class="mark">⌁</span><span>PulseProof <b>RT</b><small>RUNTIME VERIFICATION</small></span></a>
+  <div class="workspace"><span class="green-dot"></span> Local workspace <span class="workspace-tag">01</span></div>
+  <p class="nav-caption">WORKBENCH</p>
+  <nav><a class="nav-link active" href="#overview">◈ <span>Experiments</span><span id="run-count">0</span></a><a class="nav-link" href="#scenario-panel">▤ <span>Scenario library</span></a><a class="nav-link" href="#evidence-panel">⌘ <span>Evidence & exports</span></a></nav>
+  <div class="history-title"><span>RECENT EXPERIMENTS</span><span id="history-count"></span></div>
+  <div id="history" class="history" aria-label="Experiment history"></div>
+  <div class="sidebar-foot"><div class="target-symbol">Q</div><div>QNX 8.0 target<small id="target-detail">Connection not yet checked</small></div></div>
+</aside>
+<main id="overview">
+  <header class="topbar"><span>Workspace <span class="slash">/</span> Experiments</span><div class="health"><span id="target-state">Target not checked</span><button id="target-check" type="button">Check connection</button><span class="local-badge">LOCAL · PRIVATE</span></div></header>
+  <section class="page-head"><div><div class="eyebrow">MEASURE. CHALLENGE. VERIFY.</div><h1>Latency workbench<span>.</span></h1><p>Real experiments. Inspectable evidence. Repeatable decisions.</p></div><div class="head-actions"><button id="refresh" class="button secondary" type="button">↻ Refresh</button><a id="report-download" class="button secondary" hidden download>↓ HTML report</a></div></section>
+  <section id="scenario-panel" class="launch-panel"><div class="launch-icon">↗</div><div class="launch-label"><strong>Start an experiment</strong><span>Run a bounded workload on your connected QNX target.</span></div><label class="sr-only" for="scenario">Scenario</label><select id="scenario"></select><button id="run" class="button primary" type="button">▶ Run experiment</button></section>
+  <div id="notice" role="status" aria-live="polite" hidden></div>
+  <div class="browse-runs"><label for="run-picker">BROWSE EVIDENCE</label><select id="run-picker" aria-label="Experiment history picker"></select></div>
+  <section id="empty" class="empty" hidden><span class="empty-wave">⌁</span><h2>Your evidence starts here.</h2><p>Choose a scenario and run your first QNX experiment.<br>Charts appear only after a complete, validated measurement.</p></section>
+  <div id="results" hidden>
+    <section class="experiment-head"><div><div class="eyebrow">SELECTED EXPERIMENT</div><h2 id="experiment-name"></h2><p id="experiment-description"></p></div><div class="experiment-status"><span id="source-badge" class="badge"></span><span id="verdict" class="verdict"></span></div></section>
+    <div class="run-meta"><span id="run-id"></span><span id="run-time"></span><span id="sample-count"></span><span id="deadline"></span></div>
+    <section class="metrics" aria-label="Latency statistics"><article class="metric"><span>MEDIAN <b>P50</b></span><strong id="p50">—</strong><small>Successful responses</small></article><article class="metric"><span>TAIL LATENCY <b>P95</b></span><strong id="p95">—</strong><small>Nearest-rank percentile</small></article><article class="metric"><span>TAIL LATENCY <b>P99</b></span><strong id="p99">—</strong><small>Successful responses</small></article><article class="metric deadline-card"><span>DEADLINE MISSES <b>GATE</b></span><strong id="misses">—</strong><small id="miss-rate"></small></article></section>
+    <section class="charts"><article class="panel timeline-panel"><div class="panel-head"><div><h3>Response timeline</h3><p id="timeline-caption"></p></div><button id="scale-toggle" class="button secondary" type="button" aria-pressed="false">Zoom measured range</button></div><div class="chart-wrap"><svg id="timeline" viewBox="0 0 900 260" role="img" aria-label="Measured response times by sample"></svg><div id="tooltip" class="tooltip" hidden></div></div><div class="chart-foot"><span>CHRONOLOGICAL SAMPLE INDEX</span><span>Monotonic clock · nanosecond capture</span></div></article><article class="panel distribution-panel"><div class="panel-head"><div><h3>Latency distribution</h3><p>Successful responses · empirical CDF</p></div><span class="small-label">ECDF</span></div><svg id="distribution" viewBox="0 0 430 260" role="img" aria-label="Empirical cumulative latency distribution"></svg><div class="chart-foot"><span id="distribution-count"></span><span>Hover timeline to inspect</span></div></article></section>
+    <section class="bottom-grid"><article class="panel"><div class="panel-head"><div><h3>Acceptance gates</h3><p>Scenario policy, evaluated against raw samples.</p></div><span id="gate-count" class="small-label"></span></div><table><thead><tr><th>CHECK</th><th>MEASURED</th><th>POLICY</th><th>RESULT</th></tr></thead><tbody id="gates"></tbody></table></article><article class="panel recovery-panel"><div class="panel-head"><div><h3>Workload & recovery</h3><p id="native-api"></p></div><span class="small-label">NATIVE</span></div><dl id="runtime-details"></dl><p class="measurement-note">Guest CPU uses verified procnto idle clocks. Agent CPU excludes the IPC server. Timeouts leave completion deadlines unobserved; they are checked separately. VM results include host scheduling noise.</p></article></section>
+    <section class="panel comparison-panel"><div><h3>Compare a compatible baseline</h3><p>Clock, target configuration, agent binary and workload must match.</p></div><label class="sr-only" for="baseline">Baseline experiment</label><select id="baseline"></select><button id="compare" class="button secondary" type="button">Compare P99 ↗</button><p id="comparison-result" aria-live="polite"></p></section>
+    <section id="evidence-panel" class="panel evidence-panel"><div class="panel-head"><div><h3>Evidence, all the way down</h3><p id="evidence-caption"></p></div><span class="evidence-seal">✓ COMPLETE STREAM</span></div><div class="hashes"><div><span>AGENT SHA-256</span><code id="agent-hash"></code></div><div><span>RAW EVIDENCE SHA-256</span><code id="raw-hash"></code></div></div><div class="export-row"><a id="json-download" download>↓ Summary JSON</a><a id="csv-download" download>↓ Samples CSV</a><a id="raw-download" download>↓ Raw NDJSON</a><span>Local files. No telemetry. No cloud upload.</span></div></section>
+    <p class="limitation">Measurements describe this experiment on this target. They do not establish worst-case execution time, hardware real-time guarantees, or safety certification.</p>
+  </div>
+  <footer><span>PulseProof RT <b>0.2 RC1</b></span><span>Built for the questions a single average cannot answer.</span><span>QNX Global Hackathon 2026</span></footer>
+</main>
+</body></html>

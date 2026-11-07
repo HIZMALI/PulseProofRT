@@ -1,0 +1,6 @@
+{
+  "schema_version":1,"id":"service-regression","description":"The independent telemetry service's regressed build adds 5 ms blocking work. The exact same 2 ms policy must detect the regression and return exit code 1.",
+  "mode":"service","application":"regressed",
+  "parameters":{"samples":200,"period_us":5000,"deadline_us":2000,"work_us":0,"load_threads":0,"fault_every":0,"fault_delay_us":0,"timeout_us":50000,"priority":20},
+  "gates":{"p99_success_ns":2000000,"max_deadline_misses":0,"expected_timeouts":0,"min_recoveries":0}
+}

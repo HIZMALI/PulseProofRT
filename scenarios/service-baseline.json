@@ -1,0 +1,6 @@
+{
+  "schema_version":1,"id":"service-baseline","description":"Measure the independently compiled telemetry service. Deterministic sample values; real native QNX request timing. Fixed 2 ms acceptance budget.",
+  "mode":"service","application":"baseline",
+  "parameters":{"samples":200,"period_us":5000,"deadline_us":2000,"work_us":0,"load_threads":0,"fault_every":0,"fault_delay_us":0,"timeout_us":50000,"priority":20},
+  "gates":{"p99_success_ns":2000000,"max_deadline_misses":0,"expected_timeouts":0,"min_recoveries":0}
+}

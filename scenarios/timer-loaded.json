@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "timer-loaded",
+  "description": "Two same-priority worker threads generate bounded 8 ms busy / 2 ms sleep CPU pressure. 50 ms response budget.",
+  "mode": "timer",
+  "parameters": {"samples": 300, "period_us": 5000, "deadline_us": 50000, "work_us": 100, "load_threads": 2, "fault_every": 0, "fault_delay_us": 0, "timeout_us": 5000, "priority": 20},
+  "gates": {"p99_success_ns": 50000000, "max_deadline_misses": 0, "expected_timeouts": 0, "min_recoveries": 0}
+}

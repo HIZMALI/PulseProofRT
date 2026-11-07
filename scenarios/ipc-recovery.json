@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "ipc-recovery",
+  "description": "Every 25th server reply stalls 20 ms against a 5 ms kernel timeout. Four timeouts and four successful recovery exchanges are required.",
+  "mode": "ipc",
+  "parameters": {"samples": 120, "period_us": 5000, "deadline_us": 100000, "work_us": 50, "load_threads": 0, "fault_every": 25, "fault_delay_us": 20000, "timeout_us": 5000, "priority": 20},
+  "gates": {"p99_success_ns": 100000000, "max_deadline_misses": 0, "expected_timeouts": 4, "min_recoveries": 4}
+}

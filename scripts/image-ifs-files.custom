@@ -1,0 +1,2 @@
+# sshd uses this compiled-in absolute helper path.
+[type=link] /usr/libexec/sshd-auth=/system/bin/sshd-auth

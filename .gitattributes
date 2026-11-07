@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.ndjson -text
+*.csv -text
+*.jpg -text
+*.png -text

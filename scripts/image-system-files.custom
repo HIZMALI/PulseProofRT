@@ -1,0 +1,4 @@
+# OpenSSH in newer SDP packages needs the split authentication helper.
+# Keep SDK installation pristine; extend only this project's image.
+[uid=0 gid=0 perms=555] bin/sshd-auth=usr/libexec/sshd-auth
+
